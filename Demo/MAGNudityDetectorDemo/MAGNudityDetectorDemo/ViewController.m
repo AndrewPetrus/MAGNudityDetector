@@ -44,6 +44,13 @@
                      completion:nil];
 }
 
+- (void)showResult:(NSDictionary *)result {
+    self.resultLabel.hidden = NO;
+    self.resultLabel.text = [NSString stringWithFormat:@"Potential nudity result: %@ (%f%%)",
+                             [result[kPotentialNudityResultKey] boolValue] ? @"YES" : @"NO",
+                             [result[kPotentialNudityPixelPercentageKey] floatValue]];
+    [self.activityIndicator stopAnimating];
+}
 
 #pragma mark - UIImagePickerController delegate
 
@@ -54,11 +61,7 @@
             [self.activityIndicator startAnimating];
             [[MAGNudityDetector sharedInstance] analyzeImage:self.imageView.image
                                          withCompletionBlock:^(NSDictionary *result) {
-                                             self.resultLabel.hidden = NO;
-                                             self.resultLabel.text = [NSString stringWithFormat:@"Potential nudity result: %li (%f%%)",
-                                                                      (long)[result[kPotentialNudityResultKey] integerValue],
-                                                                      [result[kPotentialNudityPixelPercentageKey] floatValue]];
-                                             [self.activityIndicator stopAnimating];
+                                             [self showResult:result];
                                          }];
         }];
     }

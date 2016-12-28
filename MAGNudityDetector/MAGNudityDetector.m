@@ -70,7 +70,7 @@ static NSInteger const kExcludeBlack = 3;
               cb2 = kBoundsCbCr[1],
               cr1 = kBoundsCbCr[2],
               cr2 = kBoundsCbCr[3];
-    for (unsigned long i = 0; i < self.length; i += 4) {
+    for (unsigned long i = 0; i < self.length; i += 3) {
         NSInteger r = _m_PixelBuf[i + 0],
                   g = _m_PixelBuf[i + 1],
                   b = _m_PixelBuf[i + 2];
